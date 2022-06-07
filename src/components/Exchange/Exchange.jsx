@@ -41,7 +41,8 @@ const Exchange = (props) => {
         return <tr key={i}><td>1 {el.base}</td><td>{el.rates[actualBaseApp]}</td></tr>
     })
 
-    // console.log('rerender')
+    console.log('rerender')
+    console.log(props.exchange.actualRates)
 
     return (
         <div className={style.Main}>
