@@ -27,7 +27,7 @@ interface CurrencyConvertStateActionInterface {
 
 export type CurrencyConvertActionsTypeRoot = CurrencyConvertActionInterface | CurrencyConvertStateActionInterface
 
-const converterReducer:(state: CurrencyConvertStateType, action: CurrencyConvertActionsTypeRoot) => CurrencyConvertStateType = (state = initialState, action) => {
+const converterReducer:(state:CurrencyConvertStateType, action:CurrencyConvertActionsTypeRoot) => CurrencyConvertStateType = (state = initialState, action) => {
     switch (action.type) {
         case CurrencyConvertTypes.CURRENCY_CONVERT: {
             return {
@@ -52,7 +52,7 @@ const converterReducer:(state: CurrencyConvertStateType, action: CurrencyConvert
 export const getConvertAC = (result:string) => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT, result });
 export const getConvertStateAC = (base:string, interest:string) => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE, base, interest });
 
-export const getConvertTC = (base:string, interest:string, value:any) => {
+export const getConvertTC = (base:string, interest:string, value:number) => {
     return (dispatch:any) => {
         dispatch(getConvertStateAC(base, interest))
         currencyAPI.convert(base, interest, value).then((response:any) => {

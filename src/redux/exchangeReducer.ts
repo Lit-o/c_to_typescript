@@ -43,7 +43,12 @@ const exchangeReducer = (state = initialState, action:any) => {
     }
 }
 
-export const setBaseAC = (base: AllRates) => ({ type: ExchangeTypes.ADD_BASE_CURRENCY, base });
+interface SetBaseActionI {
+    type: ExchangeTypes.ADD_BASE_CURRENCY;
+    base: AllRates
+}
+
+export const setBaseAC = (base:AllRates):SetBaseActionI => ({ type: ExchangeTypes.ADD_BASE_CURRENCY, base });
 export const getActualRatesAC = (actualRates: any) => ({ type: ExchangeTypes.ADD_ACTUAL_RATES, actualRates });
 
 
