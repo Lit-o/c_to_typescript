@@ -14,22 +14,25 @@ const initialState = {
 
 export type CurrencyConvertStateType = typeof initialState;
 
-interface CurrencyConvertActionInterface {
-    type: CurrencyConvertTypes.CURRENCY_CONVERT,
+interface CurrencyConvertStateActionInterface {
+    type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE,
     base: string,
     interest: string
 }
 
-interface CurrencyConvertStateActionInterface {
-    type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE,
+interface CurrencyConvertActionInterface {
+    type: CurrencyConvertTypes.CURRENCY_CONVERT,
     result: number
 }
 
 export type CurrencyConvertActionsTypeRoot = CurrencyConvertActionInterface | CurrencyConvertStateActionInterface
 
-const converterReducer:(state:CurrencyConvertStateType, action:CurrencyConvertActionsTypeRoot) => CurrencyConvertStateType = (state = initialState, action) => {
+// const exchangeReducer = (state = initialState, action:ExchangeActionsType):ExchangeStateType => {
+// const converterReducer:(state:CurrencyConvertStateType, action:CurrencyConvertActionsTypeRoot) => CurrencyConvertStateType = (state = initialState, action) => {
+
+const converterReducer = (state = initialState, action:CurrencyConvertActionsTypeRoot): CurrencyConvertStateType  => {
     switch (action.type) {
-        case CurrencyConvertTypes.CURRENCY_CONVERT: {
+        case CurrencyConvertTypes.CURRENCY_CONVERT_STATE: {
             return {
                 ...state,
                 base: action.base,
@@ -37,7 +40,7 @@ const converterReducer:(state:CurrencyConvertStateType, action:CurrencyConvertAc
                 isFetching: true
             }
         }
-        case CurrencyConvertTypes.CURRENCY_CONVERT_STATE: {
+        case CurrencyConvertTypes.CURRENCY_CONVERT: {
             return {
                 ...state,
                 result: action.result,
@@ -49,8 +52,8 @@ const converterReducer:(state:CurrencyConvertStateType, action:CurrencyConvertAc
     }
 }
 
-export const getConvertAC = (result:string) => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT, result });
-export const getConvertStateAC = (base:string, interest:string) => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE, base, interest });
+export const getConvertAC = (result:number):CurrencyConvertActionsTypeRoot => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT, result });
+export const getConvertStateAC = (base:string, interest:string):CurrencyConvertActionsTypeRoot => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE, base, interest });
 
 export const getConvertTC = (base:string, interest:string, value:number) => {
     return (dispatch:any) => {

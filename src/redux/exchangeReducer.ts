@@ -1,13 +1,3 @@
-// actualRates Object
-// base: "USD"
-// date: "2022-06-07"
-// motd:
-// msg: "If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project."
-// url: "https://exchangerate.host/#/donate"
-// [[Prototype]]: Object
-// rates: {RUB: 60.997338}
-// success: true
-
 import { currencyAPI } from "../api/api";
 
 enum ExchangeTypes {
@@ -36,6 +26,17 @@ let initialState = {
 
 export type ExchangeStateType = typeof initialState
 
+interface SetBaseActionI {
+    type: ExchangeTypes.ADD_BASE_CURRENCY;
+    base: AllRates
+}
+interface GetActualRatesActionI {
+    type: ExchangeTypes.ADD_ACTUAL_RATES;
+    actualRates: Array<ActualRatesObject>
+}
+
+export type ExchangeActionsType = SetBaseActionI | GetActualRatesActionI
+
 const exchangeReducer = (state = initialState, action:ExchangeActionsType):ExchangeStateType => {
     switch (action.type) {
         case ExchangeTypes.ADD_BASE_CURRENCY: {
@@ -55,30 +56,8 @@ const exchangeReducer = (state = initialState, action:ExchangeActionsType):Excha
     }
 }
 
-interface SetBaseActionI {
-    type: ExchangeTypes.ADD_BASE_CURRENCY;
-    base: AllRates
-}
-interface GetActualRatesActionI {
-    type: ExchangeTypes.ADD_ACTUAL_RATES;
-    actualRates: Array<ActualRatesObject>
-}
-
-
-// Use an index signature to dynamically add properties to an object, 
-// e.g. const obj: {[key: string]: any} = {}. 
-// Index signatures are used when we don't know all of the names of a type's 
-// properties and the type of their values ahead of time.
-
-// rates: {RUB: 60.997338}
-// success: true
-
-
-export type ExchangeActionsType = SetBaseActionI | GetActualRatesActionI
-
 export const setBaseAC = (base:AllRates):SetBaseActionI => ({ type: ExchangeTypes.ADD_BASE_CURRENCY, base });
 export const getActualRatesAC = (actualRates: Array<ActualRatesObject>):GetActualRatesActionI => ({ type: ExchangeTypes.ADD_ACTUAL_RATES, actualRates });
-
 
 export const setActualRatesTC = (interests:AllRates, baseApp:AllRates) => {
     return (dispatch:any) => {
@@ -89,14 +68,22 @@ export const setActualRatesTC = (interests:AllRates, baseApp:AllRates) => {
     }
 }
 
-
 export default exchangeReducer;
 
 
+// actualRates Object
+// base: "USD"
+// date: "2022-06-07"
+// motd:
+// msg: "If you or your company use this project or like what we doing, please consider backing us so we can continue maintaining and evolving this project."
+// url: "https://exchangerate.host/#/donate"
+// [[Prototype]]: Object
+// rates: {RUB: 60.997338}
+// success: true
+
+
 // Вопрос по Ts
-
 // type AllRates = 'USD' | 'EUR' 
-
 // interface actualRatesObject {
 //     base: AllRates;
 //     rates: {???}
