@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { currencyAPI } from "../api/api";
 
 enum CurrencyConvertTypes {
@@ -15,13 +16,13 @@ const initialState = {
 export type CurrencyConvertStateType = typeof initialState;
 
 interface CurrencyConvertStateActionInterface {
-    type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE,
-    base: string,
+    type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE
+    base: string
     interest: string
 }
 
 interface CurrencyConvertActionInterface {
-    type: CurrencyConvertTypes.CURRENCY_CONVERT,
+    type: CurrencyConvertTypes.CURRENCY_CONVERT
     result: number
 }
 
@@ -56,7 +57,7 @@ export const getConvertAC = (result:number):CurrencyConvertActionsTypeRoot => ({
 export const getConvertStateAC = (base:string, interest:string):CurrencyConvertActionsTypeRoot => ({ type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE, base, interest });
 
 export const getConvertTC = (base:string, interest:string, value:number) => {
-    return (dispatch:any) => {
+    return (dispatch: Dispatch<CurrencyConvertActionsTypeRoot>) => {
         dispatch(getConvertStateAC(base, interest))
         currencyAPI.convert(base, interest, value).then((response:any) => {
             dispatch(getConvertAC(response))
