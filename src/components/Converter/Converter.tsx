@@ -2,14 +2,12 @@ import style from "./Converter.module.css";
 import React, { useState, useEffect } from "react";
 
 type Props = {
-    // props: {}
     converter: {isFetching: boolean, result: number}
-    getConvert: Function
-    
+    getConvert: (base: string , interest: string, requiredValue: number) => void
 }
 
 // base, interest, value
-const Converter = (props: Props) => {
+const Converter: React.FC<Props> = (props) => {
     // console.log('Render Converter')
     const [value, setValue] = useState<string>('')
     const [hello, setHello] = useState('Hello, write and send request')
