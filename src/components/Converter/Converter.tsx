@@ -1,10 +1,17 @@
 import style from "./Converter.module.css";
 import React, { useState, useEffect } from "react";
 
+type Props = {
+    // props: {}
+    converter: {isFetching: boolean, result: number}
+    getConvert: Function
+    
+}
+
 // base, interest, value
-const Converter = (props) => {
+const Converter = (props: Props) => {
     // console.log('Render Converter')
-    const [value, setValue] = useState(false)
+    const [value, setValue] = useState<string>('')
     const [hello, setHello] = useState('Hello, write and send request')
     const isFetching = props.converter.isFetching
 
@@ -12,21 +19,21 @@ const Converter = (props) => {
         setHello('Hello, write and send request')
     }, [])
 
-    const sendDataToConvert = (value) => {
-        const base = value.slice(-10, -7).toUpperCase()
-        const interest = value.slice(-3).toUpperCase()
-        const requiredValue = parseFloat(value)
+    const sendDataToConvert = (value: string) => {
+        const base: string = value.slice(-10, -7).toUpperCase()
+        const interest: string =  value.slice(-3).toUpperCase()
+        const requiredValue: number = parseFloat(value)
         props.getConvert(base, interest, requiredValue)
     }
 
-    const onEnterPress = (event) => {
+    const onEnterPress = (event: any) => {
         if (event.key === 'Enter') {
             setHello('')
             sendDataToConvert(value)
         }
     }
 
-    const onValueChange = (e) => {
+    const onValueChange = (e:any) => {
         setValue(e.currentTarget.value);
     }
 
