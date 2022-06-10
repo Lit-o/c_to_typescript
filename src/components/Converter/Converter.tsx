@@ -24,14 +24,14 @@ const Converter: React.FC<Props> = (props) => {
         props.getConvert(base, interest, requiredValue)
     }
 
-    const onEnterPress = (event: any) => {
+    const onEnterPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             setHello('')
             sendDataToConvert(value)
         }
     }
 
-    const onValueChange = (e:any) => {
+    const onValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value);
     }
 
