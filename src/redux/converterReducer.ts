@@ -15,11 +15,16 @@ const initialState = {
 
 export type CurrencyConvertStateType = typeof initialState;
 
+// can make keys type from other types
+export type urrencyConvertStateTypeKeysOrProps = keyof CurrencyConvertStateType
+
 interface CurrencyConvertStateActionInterface {
     type: CurrencyConvertTypes.CURRENCY_CONVERT_STATE
     base: string
     interest: string
 }
+
+
 
 interface CurrencyConvertActionInterface {
     type: CurrencyConvertTypes.CURRENCY_CONVERT
