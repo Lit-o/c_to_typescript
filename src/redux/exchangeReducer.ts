@@ -1,3 +1,4 @@
+import { Dispatch } from "redux";
 import { currencyAPI } from "../api/api";
 
 enum ExchangeTypes {
@@ -5,9 +6,9 @@ enum ExchangeTypes {
     ADD_ACTUAL_RATES = 'C/SRC/REDUX/EXCHANGE_REDUCER/ADD_ACTUAL_RATES'
 }
 
-type AllRates = 'USD' | 'EUR' | 'RUB'
+export type AllRates = 'USD' | 'EUR' | 'RUB'
 
-interface ActualRatesObject {
+export interface ActualRatesObject {
     base: AllRates;
     rates: {[key: string]: number};
     // rates: {[key: AllRates]: number}; 
@@ -59,10 +60,10 @@ const exchangeReducer = (state = initialState, action:ExchangeActionsType):Excha
 export const setBaseAC = (base:AllRates):SetBaseActionI => ({ type: ExchangeTypes.ADD_BASE_CURRENCY, base });
 export const getActualRatesAC = (actualRates: Array<ActualRatesObject>):GetActualRatesActionI => ({ type: ExchangeTypes.ADD_ACTUAL_RATES, actualRates });
 
-export const setActualRatesTC = (interests:AllRates, baseApp:AllRates) => {
-    return (dispatch:any) => {
+export const setActualRatesTC = (interests:Array<AllRates>, baseApp:AllRates) => {
+    return (dispatch: Dispatch<ExchangeActionsType>) => {
         dispatch(setBaseAC(baseApp))
-        currencyAPI.getArrRates(interests, baseApp).then((response:Array<ActualRatesObject>) => {
+        currencyAPI.getArrRates(interests, baseApp).then((response) => {
             dispatch(getActualRatesAC(response))
         })
     }
