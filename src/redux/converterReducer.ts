@@ -15,6 +15,7 @@ const initialState = {
 
 export type CurrencyConvertStateType = typeof initialState;
 
+// just example
 // can make keys type from other types
 export type urrencyConvertStateTypeKeysOrProps = keyof CurrencyConvertStateType
 
